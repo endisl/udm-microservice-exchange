@@ -29,7 +29,6 @@ public class ExchangeController {
             @PathVariable("to") String to
             ) {
 
-
         var exchange = repository.findByFromAndTo(from, to);
         if (exchange == null) throw new RuntimeException("Currency Unsupported");
 
