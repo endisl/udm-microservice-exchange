@@ -4,6 +4,8 @@ import com.endiluamba.exchangeservice.model.Exchange;
 import com.endiluamba.exchangeservice.repository.ExchangeRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,8 @@ import java.math.RoundingMode;
 @RequestMapping("exchange-service")
 public class ExchangeController {
 
+    private Logger logger = LoggerFactory.getLogger(ExchangeController.class);
+
     @Autowired
     private Environment environment;
 
@@ -32,6 +36,8 @@ public class ExchangeController {
             @PathVariable("from") String from,
             @PathVariable("to") String to
             ) {
+
+        logger.info("getExchange is called with -> {}, {}, {}", amount, from, to);
 
         var exchange = repository.findByFromAndTo(from, to);
         if (exchange == null) throw new RuntimeException("Currency Unsupported");
